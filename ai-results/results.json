@@ -1,0 +1,68 @@
+{
+  "dataset": {
+    "name": "Smart Home Energy Consumption",
+    "source_file": "smart_home_energy_consumption_large.csv",
+    "total_records_raw": 100000,
+    "total_points_hourly": 8784,
+    "aggregation": "Whole-home hourly sum (kWh)"
+  },
+  "forecasting": {
+    "model": "Stacked GRU (Huber loss, log1p target, lag+rolling features)",
+    "seq_len_candidates": [
+      24,
+      48,
+      72
+    ],
+    "chosen_seq_len": 24,
+    "batch_size": 32,
+    "max_epochs": 80,
+    "early_stopping_patience": 8,
+    "metric_primary": "MAPE (test)",
+    "test_mape_percent": 8.2,
+    "score_0_100": 91.8,
+    "artifacts": {
+      "run_dir": "runs_optimized/seq24",
+      "loss_plot": "runs_optimized/seq24/training_loss.png",
+      "test_plot": "runs_optimized/seq24/test_prediction.png",
+      "model_file": "runs_optimized/seq24/best_model.keras",
+      "metrics_file": "runs_optimized/seq24/metrics.json"
+    }
+  },
+  "anomaly_analysis": {
+    "baseline": {
+      "type": "Statistical baseline (NOT ML)",
+      "method": "z-score",
+      "z_threshold": 2.0,
+      "anomaly_ratio_percent": 3.48
+    },
+    "ml_based": {
+      "type": "ML-based anomaly detection",
+      "method": "Isolation Forest",
+      "anomaly_ratio_percent": 22.31
+    }
+  },
+  "energy_efficiency": {
+    "reference_capacity_kw": 3.5,
+    "avg_kw_proxy": 17.079999923706055,
+    "system_status": "Riskli"
+  },
+  "explanations": {
+    "why_this_method": [
+      "GRU, zaman serilerinde geçmiş bağımlılıklarını yakalayabildiği için tercih edilmiştir.",
+      "log1p dönüşümü ile pik değerlerin etkisi azaltılarak daha stabil öğrenme sağlanmıştır.",
+      "Huber loss, gürültülü enerji verilerinde outlier etkisini azaltır.",
+      "Lag ve rolling istatistikler, periyodik davranışları yakalamada modele yardımcı olur.",
+      "SEQ_LEN grid search ile doğrulama kaybı en düşük pencere seçilmiştir."
+    ],
+    "limitations": [
+      "Bu çalışma 'Tüm Ev' saatlik agregasyon üzerinden yürütülmüştür; cihaz bazlı tahmin ayrıca modellenebilir.",
+      "Eksik saatler basit doldurma yöntemleri ile ele alınmıştır.",
+      "Daha iyi performans için iç ortam sensörleri (iç sıcaklık/nem), kullanıcı davranışı ve tarifeler gibi ek değişkenler faydalı olabilir."
+    ],
+    "future_work": [
+      "Cihaz bazlı forecasting için ayrı modeller (klima/ısıtıcı gibi) eğitmek.",
+      "Anomali tespitinde Autoencoder gibi derin öğrenme tabanlı yöntemleri eklemek.",
+      "MQTT akışında online inference ile gerçek zamanlı tahmin/anomali üretmek."
+    ]
+  }
+}

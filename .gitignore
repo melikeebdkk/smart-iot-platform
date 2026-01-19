@@ -18,3 +18,10 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Ignore build outputs
+backend/**/bin/
+backend/**/obj/
+
+# Datasets are excluded from version control
+datasets/

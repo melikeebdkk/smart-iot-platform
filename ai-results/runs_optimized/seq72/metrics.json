@@ -1,0 +1,6 @@
+{
+  "seq_len": 72,
+  "test_mape_percent": 22.69,
+  "score_0_100": 77.31,
+  "best_val_loss": 0.22623112797737122
+}
