@@ -176,17 +176,6 @@ Bu sınırlılıklar **saklanmamış**, özellikle belirtilmiştir.
 
 ---
 
-##  Akademik Katkı
-Bu proje:
-- Simülatör bağımlılığını terk etmiş
-- Gerçekçi veriyle AI eğitmiş
-- Modelin **nasıl öğrendiğini ve nerede sınırlı olduğunu** açıkça göstermiştir
-
-Bitirme projesi ve TÜBİTAK değerlendirmesi için:
-- Teknik
-- Şeffaf
-- Savunulabilir
-bir yapı sunar.
 
 ---
 
